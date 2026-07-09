@@ -1,79 +1,76 @@
-# LeetNotes 📝
+# LeetNotes
 
-LeetNotes is a minimalist, high-performance Chrome SidePanel Extension designed for developers who want to keep track of their algorithms, complexities, and code strategies directly on LeetCode. 
+LeetNotes is a minimalist, high-performance Chrome SidePanel Extension designed to help developers record and organize algorithm strategies, space/time complexities, and code patterns directly within the browser while practicing on LeetCode.
 
-As you navigate between problems, the extension dynamically changes context—saving and loading problem-specific notes automatically without interrupting your LeetCode layout.
-
----
-
-## ✨ Features
-
-- **Problem-Specific Context Switching**: Silently monitors your active tab's URL. When you land on any LeetCode problem, LeetNotes loads your notes for that specific problem.
-- **Auto-Save with Debouncing**: Never worry about losing progress. Edits save automatically 1 second after you stop typing.
-- **Cross-Device Sync**: Built using `chrome.storage.sync` to sync your notes across all browsers linked to your Google Account.
-- **Obsidian Dark Aesthetic**: A responsive dark-theme design utilizing the Outfit typography, neon accent indicators, and glassmorphic panels.
-- **Distraction-Free Editing**: Stripped of complex setup and AI clutter to keep you focused on coding.
+The extension monitors active tab navigation to dynamically load and save notes mapped to the current problem slug, ensuring a seamless, distraction-free workflow.
 
 ---
 
-## 🛠️ Tech Stack & API Usage
+## Features
 
-- **Manifest V3**: Using modern service workers and Chrome SidePanel APIs.
-- **Chrome Storage API**: Utilizes `chrome.storage.sync` for serverless state persistence.
-- **Vanilla JS & CSS Grid/Flexbox**: Zero external library dependencies, ensuring the extension is ultra-lightweight and lightning-fast.
+- **Context-Aware Workspace**: Automatically parses the active tab's URL to retrieve and display notes specific to the loaded LeetCode problem.
+- **Debounced Auto-Save**: Implements a 1-second input debounce mechanism to save notes automatically after typing pauses, preventing data loss.
+- **Cross-Device Synchronization**: Leverages the `chrome.storage.sync` API to synchronize notes across all Chrome browser instances signed into the same user profile.
+- **Obsidian Dark Theme**: Optimized user interface utilizing the Outfit font, subtle glassmorphic panels, and clear status light indicators (Saved, Saving, and Typing).
+- **Core Utility Architecture**: Built with zero external library dependencies for lightweight execution and optimal page load speeds.
 
 ---
 
-## 📂 Project Directory Structure
+## Technical Stack
+
+- **Architecture**: Google Chrome Manifest V3
+- **APIs**: Chrome SidePanel API (`chrome.sidePanel`), Chrome Storage API (`chrome.storage.sync`), Chrome Tabs API (`chrome.tabs`)
+- **Frontend**: Vanilla HTML5, Vanilla CSS3 (Grid & Flexbox), and Vanilla JavaScript (ES6+)
+
+---
+
+## Directory Structure
 
 ```
 LeetNotes/
-├── manifest.json      # Extension metadata, permissions & definitions
-├── background.js     # Service worker tracking active tabs & navigation changes
-├── content.js        # Script injected in LeetCode to monitor client-side SPA routing
-├── sidepanel.html    # Layout structures for the sidebar workspace & empty state
-├── sidepanel.css     # Glassmorphic dark styling, neon borders, and animations
-├── sidepanel.js      # Notepad controller (auto-save debounce, storage read/write)
+├── manifest.json      # Extension manifest configuration and permissions
+├── background.js     # Service worker tracking active tabs and navigation events
+├── content.js        # Content script detecting client-side SPA route transitions
+├── sidepanel.html    # HTML structure of the sidebar notepad and welcome state
+├── sidepanel.css     # Styling sheets for the glassmorphic dark-theme editor
+├── sidepanel.js      # Controller handling debounced auto-save and sync operations
 ├── LICENSE           # Open-source MIT License
-└── README.md         # Documentation
+└── README.md         # Project documentation
 ```
 
 ---
 
-## 🚀 How to Install and Load (Unpacked Extension)
-
-Since LeetNotes is currently in developer format, you can easily load it into Google Chrome:
+## Installation Instructions
 
 1. **Clone or Download the Repository**:
    ```bash
    git clone https://github.com/YOUR_USERNAME/LeetNotes.git
    ```
-2. **Open Extensions Page**:
-   In Google Chrome, navigate to: `chrome://extensions/`.
-3. **Turn on Developer Mode**:
-   Toggle the **Developer mode** switch in the top-right corner.
-4. **Load the Extension**:
+2. **Open Chrome Extensions Manager**:
+   Navigate to `chrome://extensions/` in Google Chrome.
+3. **Enable Developer Mode**:
+   Toggle the **Developer mode** switch in the top-right corner of the page.
+4. **Load the Unpacked Directory**:
    - Click the **Load unpacked** button in the top-left corner.
-   - Select the `LeetNotes` directory containing the `manifest.json`.
-5. **Open Side Panel**:
-   - Click the **Extensions** (puzzle piece) icon in the Chrome toolbar.
-   - Click **LeetNotes** (you can pin it for quick access).
-   - The side panel will slide out alongside your browser.
+   - Select the `LeetNotes` directory containing the `manifest.json` file.
+5. **Launch the Sidebar Workspace**:
+   - Click the **Extensions** (puzzle piece) icon in your Chrome toolbar.
+   - Click the **LeetNotes** extension icon to open the SidePanel.
 
 ---
 
-## 🎮 How to Use
+## Usage Guide
 
-1. **Open LeetCode**: Go to any problem, e.g., [leetcode.com/problems/two-sum/](https://leetcode.com/problems/two-sum/).
-2. **Write Notes**: The side panel will detect the problem slug `two-sum` and present the workspace. Type your notes.
-3. **Watch the Status Badge**:
-   - **Typing** (Amber light) indicates you are actively writing.
-   - **Saving...** (Pulsing Blue light) indicates the save action is queued.
-   - **All changes saved** (Green light) indicates notes are safely synced to your profile.
-4. **Browse Problems**: Switch to another problem (e.g., *Add Two Numbers*). Your previous notes are saved, the editor clears, and loads the new problem's context automatically.
+1. Navigate to any LeetCode problem page (for example, `https://leetcode.com/problems/two-sum/`).
+2. The SidePanel will automatically detect the problem slug (`two-sum`), transition to the active workspace, and load any previously saved notes.
+3. Type notes in the editor area. The status badge in the top-right corner displays the state:
+   - **Typing** (Amber light): Input is currently being entered.
+   - **Saving...** (Pulsing Blue light): Debounce period is active and save is queued.
+   - **All changes saved** (Green light): Data is committed to cloud storage.
+4. Switch to a different LeetCode problem; LeetNotes commits any remaining inputs and loads the notes for the new problem.
 
 ---
 
-## 📄 License
+## License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE) for more details.
