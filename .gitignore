@@ -1,0 +1,17 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Extension packaging
+*.zip
+*.crx
+*.pem
+
+# Editor/IDE configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

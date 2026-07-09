@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "LeetNotes",
+  "version": "1.0.0",
+  "description": "Write, save, and retrieve problem-specific notes directly on LeetCode.",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "tabs",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://leetcode.com/problems/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open LeetNotes Side Panel"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/problems/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
