@@ -4,7 +4,6 @@ const emptyPanel = document.getElementById('empty-panel');
 const saveStatus = document.getElementById('save-status');
 const saveStatusText = saveStatus.querySelector('.status-text');
 const problemTitle = document.getElementById('problem-title');
-const problemSlug = document.getElementById('problem-slug');
 const notesTextarea = document.getElementById('notes-textarea');
 
 let currentSlug = null;
@@ -64,7 +63,6 @@ function updateUI(slug) {
       
       // Update problem meta details
       problemTitle.textContent = formatSlugToTitle(slug);
-      problemSlug.textContent = slug;
       
       // Load stored note
       notesTextarea.disabled = true;
