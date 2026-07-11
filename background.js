@@ -42,11 +42,6 @@ function broadcastSlug() {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.url && tab.active) {
     const slug = extractSlug(changeInfo.url);
-    if (slug) {
-      chrome.sidePanel.open({ tabId: tabId }).catch((err) => {
-        // Suppress errors if side panel cannot be opened yet
-      });
-    }
     updateSlug(slug);
   }
 });
@@ -57,11 +52,6 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
     const tab = await chrome.tabs.get(activeInfo.tabId);
     if (tab && tab.url) {
       const slug = extractSlug(tab.url);
-      if (slug) {
-        chrome.sidePanel.open({ tabId: activeInfo.tabId }).catch((err) => {
-          // Suppress errors if side panel cannot be opened yet
-        });
-      }
       updateSlug(slug);
     }
   } catch (error) {
@@ -76,9 +66,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     sendResponse({ slug: activeSlug });
   } else if (message.type === "UPDATE_SLUG") {
     // Content script reporting slug changes
+    updateSlug(message.slug);
+    sendResponse({ success: true });
+  } else if (message.type === "OPEN_SIDEPANEL_REQUEST") {
+    // Content script requesting to open the side panel via user gesture (click)
     if (message.slug && sender.tab && sender.tab.id) {
       chrome.sidePanel.open({ tabId: sender.tab.id }).catch((err) => {
-        // Suppress errors if side panel cannot be opened yet
+        console.warn("Failed to open side panel via user gesture:", err);
       });
     }
     updateSlug(message.slug);
