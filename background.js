@@ -68,15 +68,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Content script reporting slug changes
     updateSlug(message.slug);
     sendResponse({ success: true });
-  } else if (message.type === "OPEN_SIDEPANEL_REQUEST") {
-    // Content script requesting to open the side panel via user gesture (click)
-    if (message.slug && sender.tab && sender.tab.id) {
-      chrome.sidePanel.open({ tabId: sender.tab.id }).catch((err) => {
-        console.warn("Failed to open side panel via user gesture:", err);
-      });
-    }
-    updateSlug(message.slug);
-    sendResponse({ success: true });
-  }
+
   return true; // Keep message channel open for async responses
 });
