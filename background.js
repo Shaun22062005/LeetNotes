@@ -68,6 +68,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Content script reporting slug changes
     updateSlug(message.slug);
     sendResponse({ success: true });
-
+  }
   return true; // Keep message channel open for async responses
 });
